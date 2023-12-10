@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    generate-ddl: true # спринг создаст базу по сущностям
+  datasource:
+    username: main
+    password: main
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://0.0.0.0:5433/main
+    #    url: jdbc:postgresql://main-service-postgres:5432/main
+#    hikari:
+#      maximumPoolSize: 10
+#      leak-detection-threshold: 5000
+#      maxLifetime: 900000 #15 минут
+  mustache:
+    expose-request-attributes: true
