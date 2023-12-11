@@ -11,5 +11,6 @@ spring:
 #      maximumPoolSize: 10
 #      leak-detection-threshold: 5000
 #      maxLifetime: 900000 #15 минут
-  mustache:
+
+  freemarker:
     expose-request-attributes: true

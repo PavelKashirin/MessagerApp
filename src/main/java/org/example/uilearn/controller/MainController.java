@@ -7,6 +7,7 @@ import org.example.uilearn.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Controller
 @Setter(onMethod = @__(@Autowired))
@@ -23,17 +23,24 @@ public class MainController {
     private MessageRepository messageRepository;
 
     @GetMapping("/")
-    public String greeting(
-            Map<String, Object> model) {
-        return "greeting"; // Возвращает файл шаблон из resources.templates - по умолчанию
+    public String greeting() {
+        return "greeting";
     }
 
     @GetMapping("/main")
     public String mainPage(
             @AuthenticationPrincipal User user,
-            Map<String, Object> model
+            @RequestParam (required = false, defaultValue = "") String filter,
+            Model model
     ) {
-        model.put("messages", getMessagesByUser(user));
+
+        if (Objects.nonNull(filter) && !filter.isEmpty() ) {
+            model.addAttribute("messages", getMessagesByUserAndTag(user, filter));
+            model.addAttribute("filter", filter);
+        } else {
+            model.addAttribute("messages", getMessagesByUser(user));
+            model.addAttribute("filter", filter);
+        }
 
         return "main";
     }
@@ -59,18 +66,11 @@ public class MainController {
         return "main";
     }
 
-    @PostMapping("filter")
-    public String filter(
-            @AuthenticationPrincipal User user,
-            @RequestParam (name = "filter") String filter,
-            Map<String, Object> model
-    ) {
-        model.put("messages", getMessagesByUser(user));
-
-        return "main";
-    }
-
     private List<Message> getMessagesByUser(User user) {
         return messageRepository.findByAuthor(user);
+    }
+
+    private List<Message> getMessagesByUserAndTag(User user, String filter) {
+        return messageRepository.findByAuthorAndTag(user, filter);
     }
 }

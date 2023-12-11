@@ -25,7 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .formLogin()
                     .loginPage("/login")
-                    .permitAll() // форма логина - это шаблон login.mustache и доступ у всех
+                    .permitAll() // форма логина - это шаблон login.ftl и доступ у всех
                 .and()
                     .logout()
                     .permitAll(); // у логаута формы нет, доступ у всех

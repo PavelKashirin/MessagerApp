@@ -2,7 +2,6 @@ package org.example.uilearn.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.uilearn.dao.UserRepository;
-import org.example.uilearn.entity.Role;
 import org.example.uilearn.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
