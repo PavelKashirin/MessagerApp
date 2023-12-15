@@ -14,3 +14,7 @@ spring:
 
   freemarker:
     expose-request-attributes: true
+
+upload:
+  path: C:\Users\PaxaH\Desktop\Java\projects\LetsCodeLearn\tmp
+  browser: C:/Users/PaxaH/Desktop/Java/projects/LetsCodeLearn/tmp

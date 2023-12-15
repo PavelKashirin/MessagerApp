@@ -42,6 +42,9 @@ public class  Message {
     @ToString.Exclude
     private User author;
 
+    @Column(name = "filename")
+    private String filename;
+
     public String getAuthorName() {
         return Objects.nonNull(author) ? author.getUsername() : "<none>";
     }
